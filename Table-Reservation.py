@@ -1,42 +1,52 @@
 from Tkinter import *
-
+import base64
+import urllib
 class Check_in(object):
     root = Tk()
     root.title("Table-Reservation")
+    URL = "http://www.drgwendolynbrown.com/images/solid-square.gif"
+    link = urllib.urlopen(URL)
+    raw_data = link.read()
+    link.close()
+    next = base64.encodestring(raw_data)
+    image = PhotoImage(data=next)
+    label = Label(image=image)
+    label.pack()
     root.geometry('800x1000')
-    box = Entry(root, width = 50)
+    box = Entry(root, width = 50, bg = '#8EEBEC')
     listm = []
     dict1 = dict()
-    count = 150
+    count = 300
     data1, data2, data3, data4, data5 = [], [], [], [], []
     total1, total2, total3, total4, total5 = [], [], [], [], []
     
     def __init__(self):
         price = []
-        head = Label(self.root, text="Welcome to 5 Tables Restaurant")
-        head.pack()
-        head1 = Label(self.root, text="Name")
-        head1.pack()
-        self.box.pack()
+        head = Label(self.root, text="Welcome to 5 Tables Restaurant", bg='#78C7C7')
+        head.place(x=320, y=20)
+        head1 = Label(self.root, text="Name", bg='#78C7C7')
+        head1.place(x=385, y=50)
+        self.box.place(x=250, y=100)
         self.b = Button(self.root, text="Reserve", width=10\
-                        , command=self.monitor)
-        self.b.pack()
+                        , command=self.monitor, bg = '#92C7C7')
+        self.b.place(x=360, y=140)
         self.root.mainloop()
 
     def monitor(self):
-        if self.count >= 300:
+        if self.count >= 500:
             root1 = Tk()
             caution = Label(root1, text="Table are full reserved now, please checking again in 10 minutes")
             caution.pack()
-            exits = Button(root1, text='OK', command = root1.destroy)
+            exits = Button(root1, text='OK', command = root1.destroy, bg = '#92C7C7')
             exits.pack()
 
         else:
-            for i in xrange(150, 271, 30):
+            for i in xrange(300, 461, 40):
                 if i not in self.listm:
-                    list1 = ['Fried chicken $6', 'Rice $1', 'Noodle $8', 'Salad $5']
+                    list1 = ['Fried chicken $6', 'Rice $1', 'Noodle $8', 'Salad $5', 'Pizza $9', 'Pasta $7', 'Juice $1', \
+                             'Steak $9', 'Fried rice $2', 'Lasagna $9']
                     self.name = self.box.get()
-                    head1 = Label(self.root, text=self.name)
+                    head1 = Label(self.root, text=self.name, bg='#78C7C7')
                     head1.place(x=50, y=self.count)
 
                     self.spindle = StringVar(self.root)
@@ -44,71 +54,71 @@ class Check_in(object):
                     s = OptionMenu(self.root, self.spindle, *list1)
                     s.place(x=200, y=self.count)
 
-                    button = Button(self.root, text="Submit", command=self.submit)
+                    button = Button(self.root, text="Submit", command=self.submit, bg = '#92C7C7')
                     button.place(x=350, y=self.count)
 
-                    menu_list = Button(self.root, text="Your Ordered", command=self.menu_list)
+                    menu_list = Button(self.root, text="Your Ordered", command=self.menu_list, bg = '#78C7C7')
                     menu_list.place(x=500, y=self.count)
                     
                     #check_bill = 'check_bill'+str(self.upper)
-                    if self.count == 150:
-                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill1)
+                    if self.count == 300:
+                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill1, bg = '#48CCCD')
                         bill_button.place(x=650, y=self.count)
-                    elif self.count == 180:
-                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill2)
+                    elif self.count == 340:
+                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill2, bg = '#48CCCD')
                         bill_button.place(x=650, y=self.count)
-                    elif self.count == 210:
-                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill3)
+                    elif self.count == 380:
+                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill3, bg = '#48CCCD')
                         bill_button.place(x=650, y=self.count)
-                    elif self.count == 240:
-                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill4)
+                    elif self.count == 420:
+                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill4, bg = '#48CCCD')
                         bill_button.place(x=650, y=self.count)
-                    elif self.count == 270:
-                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill5)
+                    elif self.count == 460:
+                        bill_button = Button(self.root, text="Check Bill", command=self.check_bill5, bg = '#48CCCD')
                         bill_button.place(x=650, y=self.count)
 
                     self.listm.append(i)
-                    self.count += 30
+                    self.count += 40
                     print self.name
                     break
 
     def submit(self):
         print self.spindle.get()
         ##add price to data##
-        if self.count == 180:
+        if self.count == 300:
             self.data1.append(self.spindle.get())
             self.total1.append(int(self.spindle.get()[-1]))
-        elif self.count == 210:
+        elif self.count == 340:
             self.data2.append(self.spindle.get())
             self.total2.append(int(self.spindle.get()[-1]))
-        elif self.count == 240:
+        elif self.count == 380:
             self.data3.append(self.spindle.get())
             self.total3.append(int(self.spindle.get()[-1]))
-        elif self.count == 270:
+        elif self.count == 420:
             self.data4.append(self.spindle.get())
             self.total4.append(int(self.spindle.get()[-1]))
-        elif self.count == 300:
+        elif self.count == 460:
             self.data5.append(self.spindle.get())
             self.total5.append(int(self.spindle.get()[-1]))
         
     def menu_list(self):
         rootm = Tk()
-        if self.count == 180:
+        if self.count == 300:
             for i in self.data1:
                 Label(rootm, text=i).pack()
-        elif self.count == 210:
+        elif self.count == 340:
             for i in self.data2:
                 Label(rootm, text=i).pack()
-        elif self.count == 240:
+        elif self.count == 380:
             for i in self.data3:
                 Label(rootm, text=i).pack()
-        elif self.count == 270:
+        elif self.count == 420:
             for i in self.data4:
                 Label(rootm, text=i).pack()
-        elif self.count == 300:
+        elif self.count == 460:
             for i in self.data5:
                 Label(rootm, text=i).pack()
-        exits = Button(rootm, text='OK', command = rootm.destroy)
+        exits = Button(rootm, text='OK', command = rootm.destroy, bg = '#FDD017')
         exits.pack()
 
     ####################################apart all button check bill for 5 customers####################################
@@ -117,14 +127,14 @@ class Check_in(object):
         for i in self.data1:
             Label(rootb, text=i).pack()
         Label(rootb, text='Price = $' + str(sum(self.total1))).pack()
-        exits = Button(rootb, text='OK', command = rootb.destroy)
+        exits = Button(rootb, text='OK', command = rootb.destroy, bg = '#FDD017')
         exits.pack()
         a = Label(self.root, text='                '*100)
-        a.place(y=150)
+        a.place(y=300)
         a = Label(self.root, text='                '*100)
-        a.place(y=158)
-        self.listm.remove(150)
-        self.count -= 30
+        a.place(y=310)
+        self.listm.remove(300)
+        self.count -= 40
         self.data1, self.total1 = [], []
         print sum(self.total1)
 
@@ -133,14 +143,14 @@ class Check_in(object):
         for i in self.data2:
             Label(rootb, text=i).pack()
         Label(rootb, text='Price = $' + str(sum(self.total2))).pack()
-        exits = Button(rootb, text='OK', command = rootb.destroy)
+        exits = Button(rootb, text='OK', command = rootb.destroy, bg = '#FDD017')
         exits.pack()
         a = Label(self.root, text='                '*100)
-        a.place(y=180)
+        a.place(y=340)
         a = Label(self.root, text='                '*100)
-        a.place(y=188)
-        self.listm.remove(180)
-        self.count -= 30
+        a.place(y=350)
+        self.listm.remove(340)
+        self.count -= 40
         self.data2, self.total2 = [], []
         print sum(self.total2)
 
@@ -149,14 +159,14 @@ class Check_in(object):
         for i in self.data3:
             Label(rootb, text=i).pack()
         Label(rootb, text='Price = $' + str(sum(self.total3))).pack()
-        exits = Button(rootb, text='OK', command = rootb.destroy)
+        exits = Button(rootb, text='OK', command = rootb.destroy, bg = '#FDD017')
         exits.pack()
         a = Label(self.root, text='                '*100)
-        a.place(y=210)
+        a.place(y=380)
         a = Label(self.root, text='                '*100)
-        a.place(y=218)
-        self.listm.remove(210)
-        self.count -= 30
+        a.place(y=390)
+        self.listm.remove(380)
+        self.count -= 40
         self.data3, self.total3 = [], []
         print sum(self.total3)
 
@@ -165,14 +175,14 @@ class Check_in(object):
         for i in self.data4:
             Label(rootb, text=i).pack()
         Label(rootb, text='Price = $' + str(sum(self.total4))).pack()
-        exits = Button(rootb, text='OK', command = rootb.destroy)
+        exits = Button(rootb, text='OK', command = rootb.destroy, bg = '#FDD017')
         exits.pack()
         a = Label(self.root, text='                '*100)
-        a.place(y=240)
+        a.place(y=420)
         a = Label(self.root, text='                '*100)
-        a.place(y=248)
-        self.listm.remove(240)
-        self.count -= 30
+        a.place(y=430)
+        self.listm.remove(420)
+        self.count -= 40
         self.data4, self.total4 = [], []
         print sum(self.total4)
 
@@ -181,14 +191,14 @@ class Check_in(object):
         for i in self.data5:
             Label(rootb, text=i).pack()
         Label(rootb, text='Price = $' + str(sum(self.total5))).pack()
-        exits = Button(rootb, text='OK', command = rootb.destroy)
+        exits = Button(rootb, text='OK', command = rootb.destroy, bg = '#FDD017')
         exits.pack()
         a = Label(self.root, text='                '*100)
-        a.place(y=270)
+        a.place(y=460)
         a = Label(self.root, text='                '*100)
-        a.place(y=278)
-        self.listm.remove(270)
-        self.count -= 30
+        a.place(y=470)
+        self.listm.remove(460)
+        self.count -= 40
         self.data5, self.total5 = [], []
         print sum(self.total5)
         
